@@ -2,9 +2,11 @@ name: Kalkulator CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - develop # <-- Tambahkan branch baru di sini
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   integrate-test-inspect:
@@ -14,12 +16,12 @@ jobs:
       - name: ⬇️ Checkout Kode (CI)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # penting untuk SonarCloud
+          fetch-depth: 0 # penting untuk SonarCloud
 
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: 🧪 Jalankan Tes Unit (CT)
         run: |
@@ -29,8 +31,8 @@ jobs:
       - name: ☕ Setup JDK 17 (SonarCloud membutuhkan Java)
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
 
       - name: 📦 Cache SonarCloud
         uses: actions/cache@v4
